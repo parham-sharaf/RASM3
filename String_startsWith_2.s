@@ -29,19 +29,10 @@ Loop:
 
 notFound:
     MOV     X0, #0x0
-    B       exit
+    RET
 
 found:
     MOV     X0, #0x1
-    B       exit
-
-exit:
-    //Setup the parameters to exit the program and then call Linux to do it.
-    MOV X0, #0                      //Use 0 return code
-    MOV X8, #93                     //Service command code 93 terminates this program
-    SVC 0                           //Call linux to output the string
-
-    .end                            //End program
-
+    RET
 
 
