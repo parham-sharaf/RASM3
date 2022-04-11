@@ -12,7 +12,6 @@ equals:
         cmp W5, #0              //Checking if the character is a null character
         b.eq checkOther              //If it is a null character, return back
 
-cont:
         cmp W5, W6
         b.ne exit
 
