@@ -1,4 +1,4 @@
-OBJS = rasm3.o length.o
+OBJS = rasm3.o length.o equals.o
 
 ifdef DEBUG
 DEBUGFLGS = -g

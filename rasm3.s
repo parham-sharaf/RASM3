@@ -7,7 +7,10 @@
 szStr1:         .asciz  "Cat in the hat."
 szStr2:         .asciz  "Green eggs and ham."
 szStr3:         .asciz  "cat in the hat."
-szTest:         .asciz  "Seth"
+szTest1:        .asciz  "Seth"
+szTest2:        .asciz  "Seth!"
+szTrue:         .asciz  "True\n"
+szFalse:        .asciz  "False\n"
 szOut:          .skip   21
 cLF:            .byte   10              //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
 
@@ -33,6 +36,23 @@ _start:
         bl putch                        //Executing putch to print the line feed to the terminal
         //=============================================================================
 
+        ldr X3, =szStr1
+        ldr X4, =szStr1
+        bl equals
+
+        cmp X6, #1
+        b.ne false
+
+        ldr X0, =szTrue
+        bl putstring
+
+        b exit
+
+false:
+        ldr X0, =szFalse
+        bl putstring
+
+exit:
         //Setup the parameters to exit the program and then call Linux to do it.
         mov X0, #0                      //Use 0 return code
         mov X8, #93                     //Service command code 93 terminates this program
