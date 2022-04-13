@@ -1,7 +1,5 @@
     .global String_indexOf_1
 
-    .text
-
 // PRE-CONDITION
 // X0 holds the address to the string
 // X1 holds the index
@@ -26,7 +24,6 @@ loop:
 
 Found:
     MOV     W0, W3
-    B       exit
     RET
 
 notFound:

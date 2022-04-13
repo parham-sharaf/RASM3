@@ -11,12 +11,9 @@
 
 String_indexOf_2:
 
-    LDR     X19, =name
-    MOV     X20, #0x61
-    MOV     X21, #9
-//    MOV     X19, X0
-//    MOV     X20, X1
-//    MOV     X21, X2
+    MOV     X19, X0
+    MOV     X20, X1
+    MOV     X21, X2
 
     ADD     X19, X19, X21
 
