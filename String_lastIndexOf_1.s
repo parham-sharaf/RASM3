@@ -1,4 +1,5 @@
-    .global String_lastIndexOf_1
+    .global _start
+name:       .asciz      "Green eggs and ham."
 
     .text
 // PRE-CONDITION
@@ -8,27 +9,40 @@
 // POST-CONDITION
 // X0 returns the index of last occurance of the character
 
-String_lastIndexOf_1:
-    MOV     X19, X0
-    MOV     X20, X1
+_start:
+//    MOV     X19, X0
+//    MOV     X20, X1
+
+    LDR     X19, =name
+    MOV     X20, 0x67
+
+    STR     LR, [SP, #-16]!
+
+    MOV     X0, X19
+    BL      strlength
+
+    LDR     LR, [SP], #16
+
+    SUB     W3, W0, #1
+
+    SUB     X19, X19, X3
 
     LDRB    W4, [X19], #1
-    MOV     W3, #0x0
-    MOV     W2, #-1
+
 
 loop:
-    CBZ     W4, endOfSearch
+    CMP     W4, #-1
+    BEQ     notFound
     CMP     W20, W4
-    BEQ     updateIndex
-loopCont:
-    Add     W3, W3, #0x1
-    LDRB    W4, [X19], #1
+    BEQ     found
+    SUB     W3, W3, #0x1
+    LDRB    W4, [X19], #-1
     B       loop
 
-updateIndex:
-    MOV     W2, W3
-    B       loopCont
+found:
+    MOV     X0, X3
+    RET
 
-endOfSearch:
-    MOV     X0, X2
+notFound:
+    MOV     X0, #-1
     RET
