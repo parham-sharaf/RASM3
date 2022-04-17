@@ -13,8 +13,8 @@
 String_startsWith_2:
 //    MOV X19, X0
 //    MOV X20, X2
-    LDR     X19, =str1
-    LDR     X20, =str2
+//    LDR     X19, =szStr1
+//    LDR     X20, =szStr2
 
     LDRB    W3, [X19], #1
     LDRB    W4, [X20], #1

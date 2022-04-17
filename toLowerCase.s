@@ -21,10 +21,10 @@ toLowerCase:
         mov FP, SP                  //Moving the FP to match the SP
 
         str X0, [FP, #str]          //Storing the string (X0) into the FP at position #str
-//        bl length                   //Branching and linking length to determine the length of the function
-//        add X0, X0, #1              //Adding 1 to the length to compensate for the null character
+        bl length                   //Branching and linking length to determine the length of the function
+        add X0, X0, #1              //Adding 1 to the length to compensate for the null character
 
-//        bl malloc                   //Branching and linking to malloc
+        bl malloc                   //Branching and linking to malloc
 
         ldr X1, =ptrString          //Loading the address of ptrString into X1
         str X0, [X1]                //Storing X0 (ptr address of the string's length + 1) into ptrString
