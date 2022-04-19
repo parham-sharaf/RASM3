@@ -28,14 +28,13 @@ String_concat:
 
         bl length                   //Branching and linking length to determine the length of the function
 
-        str X0, [FP, #length1]      //Storing the length of the first string
+        str X0, [FP, #length1]      //Storing the length of the first string (X0) into the FP at position #length1
+        ldr X0, [FP, #str2]         //Popping the stack and storing the second string into X0
 
-        ldr X0, [FP, #str2]
+        bl length                   //Branching and linking to length
 
-        bl length
-
-        ldr X1, [FP, #length1]
-        add X0, X0, X1
+        ldr X1, [FP, #length1]      //Popping the stack and storing the length of the first string into X1
+        add X0, X0, X1              //Adding X0 and X1 and storing the result in X0
         add X0, X0, #1              //Adding 1 to the length to compensate for the null character
 
         bl malloc                   //Branching and linking to malloc
@@ -43,29 +42,27 @@ String_concat:
         ldr X2, =ptrString          //Loading the address of ptrString into X4
         str X0, [X2]                //Storing X0 (ptr address of the string's length + 1) into ptrString
 
-        ldr X0, [FP, #str1]          //Popping the stack and storing the string into X0
-        ldr X1, [FP, #str2]        //Popping the stack and storing the first character into X1
+        ldr X0, [FP, #str1]         //Popping the stack and storing the string into X0
+        ldr X1, [FP, #str2]         //Popping the stack and storing the first character into X1
 
         ldr X2, [X2]                //Dereferencing ptrString to show the address of the string
 
 loop:
-        ldrb W3, [X0], #1
+        ldrb W3, [X0], #1           //Loading W3 with the next byte from the first string
 
-        cmp W3, #0
-        b.eq nextStr
+        cbz W3, nextStr             //If W3 is a null character, jump to nextStr
 
-        strb W3, [X2], #1
+        strb W3, [X2], #1           //Storing W3 into the ptrString (X2) on the next byte over
 
-        b loop
+        b loop                      //Unconditional jump to loop
 
 nextStr:
-        ldrb W3, [X1], #1
-        strb W3, [X2], #1
+        ldrb W3, [X1], #1           //Loading W3 with the next byte from the second string
+        strb W3, [X2], #1           //Storing W3 into the ptrString (X2) on the next byte over
 
-        cmp W3, #0
-        b.eq cont
+        cbz W3, cont                //If W3 is a null character, jump to cont
 
-        b nextStr
+        b nextStr                   //Unconditional jump to nextStr
 
 cont:
         ldr X0, =ptrString          //Loading the address of ptrString into X0

@@ -47,8 +47,7 @@ loop:
 loopEnd:
         strb W2, [X1], #1           //Storing W2 on the next byte into X1
 
-        cmp W2, #0                  //Checking to see if W2 contains a null character
-        b.eq cont                   //If it does, jump to cont
+        cbz W2, cont                //If W2 is a null character, jump to cont
 
         b loop                      //Unconditional jump to loop
 

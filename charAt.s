@@ -45,8 +45,7 @@ loop:
         ldrb W4, [X0], #1           //Loading W4 with the next byte from the string
 
         //If the counter goes out of bounds
-        cmp W4, #0                  //Checking to see if W4 is holding a null character
-        b.eq fail                   //If it is, jump to fail
+        cbz W4, fail                //If W4 is a null character, jump to fail
 
         add X2, X2, #1              //Incrementing counter
 

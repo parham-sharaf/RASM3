@@ -15,8 +15,7 @@ equals:
         ldrb W2, [X0], #1       //Loading W2 with the next byte from the first string
         ldrb W3, [X1], #1       //Loading W3 with the next byte from the second string
 
-        cmp W2, #0              //Checking if the character from the first string is a null character
-        b.eq checkOther         //If it is a null character, check to see if we are at the end of the second string
+        cbz W2, checkOther      //If W2 is a null character, check to see if we are at the end of the second string
 
         cmp W2, W3              //Checking to see if the character from the first string and second string match
         b.ne exit               //If they do not match, jump to exit (NOT setting the boolean to TRUE)
@@ -24,9 +23,7 @@ equals:
         b equals                //Unconditional jump to equals
 
 checkOther:
-        cmp W3, #0              //Checking if the character is a null character
-        b.eq same               //If it is a null character, jump to same
-
+        cbz W3, same            //If W3 is a null character, jump to same
         b exit                  //Unconditional jump to exit
 
 same:

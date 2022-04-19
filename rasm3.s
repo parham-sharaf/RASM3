@@ -33,11 +33,14 @@ szStringToUpperCase:        .asciz  "21)\tString_toUpperCase(s1) = "
 szStringConcat:             .asciz  "22)\tString_concat(s1, ' ');\n\tString_concat(s1, s2) = "
 szTrue:                     .asciz  "TRUE\n"        //Label szTrue. Used for the output
 szFalse:                    .asciz  "FALSE\n"       //Label szFalse. Used for the output
+szStringStartWith1Phrase:   .asciz  "hat."
+szStringStartWith2Phrase:   .asciz  "Cat"
+szStringEndsWithPhrase:     .asciz  "in the hat."
 szSpace:                    .asciz  " "             //Label szFalse. Used for String_concat function
 ptrStr:                     .quad   0               //Label ptrString. Contains .quad of 0. Pointer string
-szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
-szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
-szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
+szStr1:                     .asciz  "Cat in the hat."              //Label szStr1. Contains a buffer to store a string
+szStr2:                     .asciz  "Green eggs and ham."              //Label szStr2. Contains a buffer to store a string
+szStr3:                     .asciz  "cat in the hat."              //Label szStr3. Contains a buffer to store a string
 szOut:                      .skip   21              //Label szOut. Contains a buffer to print to the terminal
 cLF:                        .byte   10              //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
 
@@ -46,39 +49,6 @@ cLF:                        .byte   10              //Label cLF. Contains .byte 
     .text
 
 _start:
-        //FOR STRING 1===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr1                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 2===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr2                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 3===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr3                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal
@@ -154,8 +124,7 @@ _start:
         ldr X1, =szStr3                 //Loading X1 with the address of szStr3
         bl equals                       //Branching and linking to equals
 
-        cmp X0, #1                      //Comparing X0 and 1
-        b.ne false1                     //If they are not equal, jump to false1
+        cbz X0, false1                  //If the flag is false (X0 contains 0), jump to false1
 
         ldr X0, =szTrue                 //Loading X0 with the address of szTrue
         bl putstring                    //Branching and linking to putstring
@@ -178,8 +147,7 @@ continueAfterEquals1:
         ldr X1, =szStr1                 //Loading X1 with the address of szStr1
         bl equals                       //Branching and linking to equals
 
-        cmp X0, #1                      //Comparing X0 to 1
-        b.ne false2                     //If they are not equal, jump to false2
+        cbz X0, false2                  //If the flag is false (X0 contains 0), jump to false2
 
         ldr X0, =szTrue                 //Loading X0 with the address of szTrue
         bl putstring                    //Branching and linking to putstring
@@ -196,7 +164,7 @@ continueAfterEquals2:
         bl putch                        //Executing putch to print the line feed to the terminal
         //=============================================================================
 
-        //PRINTING STRING_EQUALS FUNCTIONS===============================================================
+        //PRINTING STRING_EQUALSIGNORECASE FUNCTIONS===============================================================
         ldr X0, =szStringEqualsIgnoreCase1      //Loading X0 with the address of szStringEqualsIgnoreCase1
         bl putstring                    //Branching and linking to putstring
 
@@ -204,8 +172,7 @@ continueAfterEquals2:
         ldr X1, =szStr3                 //Loading X1 with the address of szStr3
         bl equalsIgnoreCase             //Branching and linking to equalsIgnoreCase
 
-        cmp X0, #1                      //Comparing X0 with 1
-        b.ne false3                     //If they are not equal, jump to false3
+        cbz X0, false3                  //If the flag is false (X0 contains 0), jump to false3
 
         ldr X0, =szTrue                 //Loading X0 with the address of szTrue
         bl putstring                    //Branching and linking to putstring
@@ -228,8 +195,7 @@ continueAfterEquals3:
         ldr X1, =szStr2                 //Loading X1 with the address of szStr2
         bl equals                       //Branching and linking to equals
 
-        cmp X0, #1                      //Comparing X0 with 1
-        b.ne false4                     //If they are not equal, jump to false4
+        cbz X0, false4                  //If the flag is false (X0 contains 0), jump to false4
 
         ldr X0, =szTrue                 //Loading X0 with the address of szTrue
         bl putstring                    //Branching and linking to putstring
@@ -287,10 +253,6 @@ continueAfterEquals4:
 
         bl putstring                    //Branching and linking to putstring
 
-        ldr X0, =ptrStr                 //Loading X0 with the address of ptrStr
-        ldr X0, [X0]                    //Dereferencing ptrStr and loading the string address in X0
-        bl free                         //Branching and linking to free
-
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal
@@ -312,10 +274,6 @@ continueAfterEquals4:
         str X0, [X1]                    //Storing X0 into ptrStr
 
         bl putstring                    //Branching and linking to putstring
-
-        ldr X0, =ptrStr                 //Loading X0 with the address of ptrStr
-        ldr X0, [X0]                    //Dereferencing ptrStr and loading the string address in X0
-        bl free                         //Branching and linking to free
 
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
@@ -339,10 +297,6 @@ continueAfterEquals4:
 
         bl putstring                    //Branching and linking to putstring
 
-        ldr X0, =ptrStr                 //Loading X0 with the address of ptrStr
-        ldr X0, [X0]                    //Dereferencing ptrStr and loading the string address in X0
-        bl free                         //Branching and linking to free
-
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal
@@ -356,10 +310,23 @@ continueAfterEquals4:
         ldr X0, =szStringStartsWith1    //Loading X0 with the address of szStringStartsWith1
         bl putstring                    //Branching and linking to putstring
 
-        //Printing endline
-        ldr X0, =cLF                    //Loading X0 with the address of cLF
-        bl putch                        //Executing putch to print the line feed to the terminal
+        ldr X0, =szStr1                 //Loading X0 with the address of szStr1
+        mov X1, #11                     //Setting X1 with 11
+        ldr X2, =szStringStartWith1Phrase       //Loading X2 with the address of szStringStartWith1Phrase
+        bl String_startsWith_1          //Branching and linking to String_startsWith_1
 
+        cbz X0, false5                  //If the flag is false (X0 contains 0), jump to false5
+
+        ldr X0, =szTrue                 //Loading X0 with the address of szTrue
+        bl putstring                    //Branching and linking to putstring
+
+        b continueAfterEquals5          //Unconditional jump to continueAfterEquals5
+
+false5:
+        ldr X0, =szFalse                //Loading X0 with the address of szFalse
+        bl putstring                    //Branching and linking to putstring
+
+continueAfterEquals5:
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal
@@ -369,10 +336,22 @@ continueAfterEquals4:
         ldr X0, =szStringStartsWith2    //Loading X0 with the address of szStringStartsWith2
         bl putstring                    //Branching and linking to putstring
 
-        //Printing endline
-        ldr X0, =cLF                    //Loading X0 with the address of cLF
-        bl putch                        //Executing putch to print the line feed to the terminal
+        ldr X0, =szStr1                 //Loading X0 with the address of szstr1
+        ldr X1, =szStringStartWith2Phrase       //Loading X1 with the address of szStringStartWith2Phrase
+        bl String_startsWith_2          //Branching and linking to String_startsWith_2
 
+        cbz X0, false6                  //If the flag is false (X0 contains 0), jump to false6
+
+        ldr X0, =szTrue                 //Loading X0 with the address of szTrue
+        bl putstring                    //Branching and linking to putstring
+
+        b continueAfterEquals6          //Unconditional jump to continueAfterEquals6
+
+false6:
+        ldr X0, =szFalse                //Loading X0 with the address of szFalse
+        bl putstring                    //Branching and linking to putstring
+
+continueAfterEquals6:
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal
@@ -382,10 +361,22 @@ continueAfterEquals4:
         ldr X0, =szStringEndsWith       //Loading X0 with the address of szStringEndsWith
         bl putstring                    //Branching and linking to putstring
 
-        //Printing endline
-        ldr X0, =cLF                    //Loading X0 with the address of cLF
-        bl putch                        //Executing putch to print the line feed to the terminal
+        ldr X0, =szStr1                 //Loading X0 with the address of szStr1
+        ldr X1, =szStringEndsWithPhrase         //Loading X1 with the address of szStringEndsWithPhrase
+        bl String_endsWith              //Branching and linking to String_endsWith
 
+        cbz X0, false7                  //If they are not equal, jump to false7
+
+        ldr X0, =szTrue                 //Loading X0 with the address of szTrue
+        bl putstring                    //Branching and linking to putstring
+
+        b continueAfterEquals7          //Unconditional jump to continueAfterEquals7
+
+false7:
+        ldr X0, =szFalse                //Loading X0 with the address of szFalse
+        bl putstring                    //Branching and linking to putstring
+
+continueAfterEquals7:
         //Printing endline
         ldr X0, =cLF                    //Loading X0 with the address of cLF
         bl putch                        //Executing putch to print the line feed to the terminal

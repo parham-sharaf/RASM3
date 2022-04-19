@@ -21,10 +21,10 @@ toUpperCase:
         mov FP, SP                  //Moving the FP to match the SP
 
         str X0, [FP, #str]          //Storing the string (X0) into the FP at position #str
-//        bl length                   //Branching and linking length to determine the length of the function
-//        add X0, X0, #1              //Adding 1 to the length to compensate for the null character
+        bl length                   //Branching and linking length to determine the length of the function
+        add X0, X0, #1              //Adding 1 to the length to compensate for the null character
 
-//        bl malloc                   //Branching and linking to malloc
+        bl malloc                   //Branching and linking to malloc
 
         ldr X1, =ptrString          //Loading the address of ptrString into X1
         str X0, [X1]                //Storing X0 (ptr address of the string's length + 1) into ptrString
@@ -47,8 +47,7 @@ loop:
 loopEnd:
         strb W2, [X1], #1           //Storing W2 on the next byte into X1
 
-        cmp W2, #0                  //Checking to see if W2 contains a null character
-        b.eq cont                   //If it does, jump to cont
+        cbz W2, cont                //If W2 is a null character, jump to cont
 
         b loop                      //Unconditional jump to loop
 

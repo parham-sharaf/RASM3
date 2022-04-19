@@ -59,8 +59,7 @@ store:
         strb W4, [X3], #1           //Storing W4 on the next byte into X3
 
 checkEnd:
-        cmp W4, #0                  //Checking if W4 is containing a null character
-        b.ne loop                   //If not, jump to loop
+        cbnz W4, loop               //If W4 is not a null character, jump to loop
 
 cont:
         ldr X0, =ptrString          //Loading the address of ptrString into X0
