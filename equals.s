@@ -18,16 +18,18 @@ equals:
         cbz W2, checkOther      //If W2 is a null character, check to see if we are at the end of the second string
 
         cmp W2, W3              //Checking to see if the character from the first string and second string match
-        b.ne exit               //If they do not match, jump to exit (NOT setting the boolean to TRUE)
+        b.ne noMatch            //If they do not match, jump to noMatch (NOT setting the boolean to TRUE)
 
         b equals                //Unconditional jump to equals
 
 checkOther:
         cbz W3, same            //If W3 is a null character, jump to same
-        b exit                  //Unconditional jump to exit
+        b noMatch               //Unconditional jump to noMatch
 
 same:
         mov X0, #1              //Setting the boolean to TRUE
+        ret                     //Return back to main
 
-exit:
+noMatch:
+        mov X0, #0              //Setting the boolean to FALSE
         ret                     //Return back to main

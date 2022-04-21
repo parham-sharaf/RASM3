@@ -1,10 +1,10 @@
-    .global String_endsWith          //Provide program starting address to linker
+.global String_endsWith          //Provide program starting address to linker
 
     .text
 
-    .equ            str, 0          //Label str1. Used by the frame pointer. Start of #str1 is at 0 bytes
-    .equ            phr, 8          //Label str2. Used by the frame pointer. Start of #str2 is at 8 bytes
-    .equ            len, 16          //Label len. Used by the frame pointer. Start of #len is at 16 bytes
+    .equ            str, 0          //Label str. Used by the frame pointer. Start of #str is at 0 bytes
+    .equ            phr, 8          //Label phr. Used by the frame pointer. Start of #phr is at 8 bytes
+    .equ            len, 16         //Label len. Used by the frame pointer. Start of #len is at 16 bytes
 
 //FUNCTION String_endsWith======================================================================
 //@PARAM:

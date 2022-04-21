@@ -8,6 +8,7 @@ ptrString:          .quad   0       //Label ptrString. Contains .quad of 0. Poin
     .equ            str, 0          //Label str. Used by the frame pointer. Start of #str is at 0 bytes
     .equ            char1, 8        //Label char1. Used by the frame pointer. Start of #char1 is at 8 bytes
     .equ            char2, 16       //Label char2. Used by the frame pointer. Start of #char2 is at 16 bytes
+    .equ            len, 24         //Label len. Used by the from pointer. Start of #len is at 24 bytes
 
 //FUNCTION replace======================================================================
 //@PARAM:
