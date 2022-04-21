@@ -11,8 +11,8 @@
 
 String_lastIndexOf_2:
 
-    MOV     X3, X1
-    ADD     X0, X0, X1
+    MOV     X3, X2
+    ADD     X0, X0, X2
 
     LDRB    W4, [X0], #-1
 
