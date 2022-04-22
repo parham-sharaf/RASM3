@@ -11,19 +11,19 @@ String_indexOf_1:
     MOV     X19, X0
     MOV     X20, X1
 
-    LDRB    W4, [X19], #1
-    MOV     W3, #0x0
+    LDRB    W3, [X0], #1
+    MOV     W2, #0x0
 
 loop:
-    CBZ     W4, notFound
-    CMP     W20, W4
+    CBZ     W3, notFound
+    CMP     W1, W3
     BEQ     Found
-    Add     W3, W3, #0x1
-    LDRB    W4, [X19], #1
+    Add     W2, W2, #0x1
+    LDRB    W3, [X0], #1
     B       loop
 
 Found:
-    MOV     W0, W3
+    MOV     W0, W2
     RET
 
 notFound:
