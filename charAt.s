@@ -1,6 +1,3 @@
-    .data
-ptrString:          .quad   0       //Label ptrString. Contains .quad of 0. Pointer string
-
     .global charAt                  //Provide program starting address to linker
 
     .text
