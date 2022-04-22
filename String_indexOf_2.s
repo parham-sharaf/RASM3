@@ -1,37 +1,52 @@
     .global String_indexOf_2
 
-// PRE-CONDITION
-// X0 holds the address to the string
-// X1 holds the index
-// X2 holds the starting index
-
-// POST-CONDITION
-// X0 returns the index of first occurance of the character
-// after the specified index
+//*******************************************************************************
+//* FUNCTION String_indexOf_2
+//* -----------------------------------------------------------------------------
+//* Returns the index of first occurrence of the specified
+//*  character ch in the string from the starting position
+//* 	 	==> returns: signed integer
+//* -----------------------------------------------------------------------------
+//* 	PRE-CONDITIONS
+//*         X0: holds the address to the str
+//*         X1: holds the character
+//*         X2: holds the starting position
+//*
+//* 	POST-CONDITIONS
+//*         X0: returns the index of first occurance of the character
+//* 		Following registers will be modified
+//*         X0, X1, X2, X3, X4
+//*******************************************************************************/
 
 String_indexOf_2:
 
-    MOV     X19, X0
-    MOV     X20, X1
-    MOV     X21, X2
+    // Moves the pointer to to starting position
+    ADD     X0, X0, X2              // X0 = X0 + X2
 
-    ADD     X19, X19, X21
+    // Get character in str
+    LDRB    W4, [X0], #1            // Obtains the character X0 is pointing to
 
-    LDRB    W4, [X19], #1
-    MOV     W3, #0x0
-
+    MOV     W3, #0x0                // Initializes the index counter
 loop:
-    CBZ     W4, notFound
-    CMP     W20, W4
-    BEQ     found
-    Add     W3, W3, #0x1
-    LDRB    W4, [X19], #1
-    B       loop
+    // Check if the pointer is
+    // at the end of str
+    CBZ     W4, notFound            // If W4 == null, branch to notFound
+
+    // If str[n] == W1
+    CMP     W1, W4                  // Compares the W4 to W1
+    BEQ     found                   // If the same, branch to found
+
+    // Else
+    LDRB    W4, [X0], #1            // Get the next character and store it in W4
+    Add     W3, W3, #0x1            // Else, increment the index
+    B       loop                    // Branch to loop
 
 found:
-    MOV     W0, W3
-    RET
+    // Return found
+    MOV     W0, W3                  // W0 = W3
+    RET                             // Return
 
 notFound:
-    MOV     X0, #-1
-    RET
+    // Return not found
+    MOV     X0, #-1                 // X0 = -1
+    RET                             // Return

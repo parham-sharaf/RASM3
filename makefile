@@ -3,7 +3,7 @@ EXECUTABLE = rasm3
 
 #This is meant for any external files not contained within the project
 #Mostly the professor's function object files
-EXTERNAL = ../../obj/ascint64.o ../../obj/putch.o ../../obj/putstring.o ../../obj/strlength.o ../../obj/int64asc.o ../../obj/getstring.o /usr/lib/aarch64-linux-gnu/libc.so
+EXTERNAL = ../obj/ascint64.o ../obj/putch.o ../obj/putstring.o ../obj/strlength.o ../obj/int64asc.o ../obj/getstring.o /usr/lib/aarch64-linux-gnu/libc.so
 
 #Automatically deduces corresponding .o files of .s files in this directory and all subdirectories
 _OBJECTS := $(patsubst %.s, %.o, $(shell find * -type f -name '*.s'))
@@ -25,4 +25,4 @@ clean:
 gef: $(EXECUTABLE)
 	gdb $(EXECUTABLE)
 run: $(EXECUTABLE)
-	./$(EXECUTABLE)
+	./$(EXECUTABLE)p
