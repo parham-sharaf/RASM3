@@ -4,6 +4,7 @@
 // Date: 2022-04-10
 
     .data
+szOpeningMsg:               .asciz  "Names: Seth Tran & Parham Sharafoleslami\nClass: CS 3B\nLab: rasm3.asm\nDate: April 10, 2022\n\n"       //Label szOpeningMsg. Used to print out the opening information to the terminal
 szPrompt:                   .asciz  "Please enter a string: "                                   //Prompt used in output
 szPmpt1a:                   .asciz  "1.\ts1.length() = "                                        //Prompt used in output
 szPmpt1b:                   .asciz  "\ts2.length() = "                                          //Prompt used in output
@@ -51,6 +52,9 @@ cLF:                        .byte   10              //Label cLF. Contains .byte 
     .text
 
 _start:
+        ldr X0, =szOpeningMsg           //Loading X0 with the address of szOpeningMsg
+        bl putstring                    //Branching and linking to putstring
+
         //FOR STRING 1===============================================================
         //Prompting the user to input a string
         ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
