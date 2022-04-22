@@ -346,12 +346,23 @@ loop:
         MOV X1, #4                      //Setting X1 to 4
         BL charAt                       //Branching and linking to charAt
 
-        MOV X3, X0                      //Moving X0 to X3
-        BL putstring                    //Branching and linking to putstring
+        cbnz X0, printChar              //Checking if X0 contains 0; if so, jump to printChar
 
-        MOV X0, X3                      //Moving X3 to X0
-        BL free                         //Branching and linking to free
+        //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
+        LDR X1, =szOut                  //Loading X1 with the address of the buffer
+                                        //X0 already contains the int value from the calculations
+        BL int64asc                     //Executing int64asc to convert the int value to ASCII
 
+        LDR X0, =szOut                  //Loading X0 with the address of the buffer
+        BL putstring                    //Executing putstring to print answer to the terminal
+        //=============================================================================
+
+        b continueAfterPrintChar        //Unconditional jump to continueAfterPrintChar
+
+printChar:
+        BL putch                        //Branching and linking to putch
+
+continueAfterPrintChar:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
