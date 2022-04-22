@@ -52,6 +52,7 @@ cLF:                        .byte   10              //Label cLF. Contains .byte 
     .text
 
 _start:
+        //Printing out information to the terminal
         ldr X0, =szOpeningMsg           //Loading X0 with the address of szOpeningMsg
         bl putstring                    //Branching and linking to putstring
 
