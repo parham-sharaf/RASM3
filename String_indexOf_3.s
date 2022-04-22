@@ -42,7 +42,8 @@ String_indexOf_3:
 
     // Last index to be checked
     SUB     X23, X21, X22               // Subtracts the length of substring from the lenght of str
-
+    ADD     X23, X23, #1                // Increments X23
+    MOV     X4, #0x0                    // Initializes the index counter
 loop:
     // Gets the charaters
     LDRB    W2, [X19], #1               // Obtains the character in str X19 is pointing to

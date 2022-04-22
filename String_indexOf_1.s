@@ -22,6 +22,7 @@ String_indexOf_1:
     // Get character in str
     LDRB    W3, [X0], #1                    // Obtains the character X0 is pointing to
 
+    MOV W2, #0x0                            // Initializes the index counter
 loop:
     // Check if the pointer is
     // at the end of str
