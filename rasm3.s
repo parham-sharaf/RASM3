@@ -37,9 +37,13 @@ szInput10:                  .asciz  "hat."          //Label szInput10. Used for 
 szInput11:                  .asciz  "Cat"           //Label szInput11. Used for input in Function 11
 szInput12:                  .asciz  "in the cat."   //Label szInput12. Used for input in Function 12
 szInput22:                  .asciz  " "             //Label szInput22. Used for input in Function 22
-szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
-szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
-szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
+szInput15:                  .asciz  "eggs"          //Label szInput15. Used for input in Function 15
+//szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
+szStr1:                     .asciz  "Cat in the hat."              //Label szStr1. Contains a buffer to store a string
+//szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
+szStr2:                     .asciz  "Green eggs and ham."              //Label szStr2. Contains a buffer to store a string
+//szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
+szStr3:                     .asciz  "cat in the hat."              //Label szStr3. Contains a buffer to store a string
 szStr4:                     .skip   21              //Label szStr4. Contains a buffer to store a string
 szOut:                      .skip   21              //Label szOut. Contains a buffer to print to the terminal
 cLF:                        .byte   10              //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
@@ -49,38 +53,7 @@ cLF:                        .byte   10              //Label cLF. Contains .byte 
     .text
 
 _start:
-        //FOR STRING 1===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
 
-        //Getting number from the keyboard
-        ldr X0, =szStr1                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 2===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr2                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 3===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr3                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -492,9 +465,22 @@ continueAfterEquals7:
         LDR X0, =szPmpt15               //Loading X0 with the address of szPmpt15
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =szStr2                 //Loading X0 with the address of szStr2
+        LDR X1, =szInput15              //Loading X1 with the address of szInput15
+        BL String_indexOf_3             //Branching and linking to String_indexOf_3
+
+        //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
+        LDR X1, =szOut                  //Loading X1 with the address of the buffer
+                                        //X0 already contains the int value from the calculations
+        BL int64asc                     //Executing int64asc to convert the int value to ASCII
+
+        LDR X0, =szOut                  //Loading X0 with the address of the buffer
+        BL putstring                    //Executing putstring to print answer to the terminal
+
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
+        //=============================================================================
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -505,9 +491,22 @@ continueAfterEquals7:
         LDR X0, =szPmpt16               //Loading X0 with the address of szPmpt16
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =szStr2                 //Loading X0 with the address of szStr2
+        MOV X1, #'g'                    //Setting X1 to the ASCII value of 'g'
+        BL String_lastIndexOf_1         //Branching and linking to String_lastIndexOf_1
+
+        //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
+        LDR X1, =szOut                  //Loading X1 with the address of the buffer
+                                        //X0 already contains the int value from the calculations
+        BL int64asc                     //Executing int64asc to convert the int value to ASCII
+
+        LDR X0, =szOut                  //Loading X0 with the address of the buffer
+        BL putstring                    //Executing putstring to print answer to the terminal
+
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
+        //=============================================================================
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF

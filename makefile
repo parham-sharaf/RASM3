@@ -25,4 +25,4 @@ clean:
 gef: $(EXECUTABLE)
 	gdb $(EXECUTABLE)
 run: $(EXECUTABLE)
-	./$(EXECUTABLE)p
+	./$(EXECUTABLE)
