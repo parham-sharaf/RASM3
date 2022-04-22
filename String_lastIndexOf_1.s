@@ -1,37 +1,58 @@
     .global String_lastIndexOf_1
 
-    .text
-// PRE-CONDITION
-// X0 holds the address to the string
-// X1 holds a character
-
-// POST-CONDITION
-// X0 returns the index of last occurance of the character
+//*******************************************************************************
+//* FUNCTION String_indexOf_3
+//* -----------------------------------------------------------------------------
+//* It returns the last occurrence of the character ch in
+//*    the string.
+//* 	 	==> returns: signed integer
+//* -----------------------------------------------------------------------------
+//* 	PRE-CONDITIONS
+//*         X0: holds the address to the str
+//*         X1: holds the character
+//*
+//* 	POST-CONDITIONS
+//*         X0: returns the index of last occurance of the substring
+//* 		Following registers will be modified
+//*         X0, X1, X2, X3, X4
+//*******************************************************************************/
 
 String_lastIndexOf_1:
-    STR     LR, [SP, #-16]!
+    STR     LR, [SP, #-16]!                 // Pushes LR onto the stack
+    STP     X19, X20, [SP, #-16]!           // Pushes X19 and X20 onto the stack
 
-    BL      length
-    LDR     LR, [SP], #16
+    // Stores the variables
+    MOV     X19, X0                         // X19 = X0
+    MOV     X20, X1                         // X20 = X0
 
-    SUB     W2, W0, #1
-    ADD     X0, X0, X3
+    // Gets the length of the string
+    BL      length                          // Branches to length
 
-    LDRB    W3, [X0], #-1
+    // Sets the index
+    SUB     W0, W0, #1                      // W2 = W0 - 1
+    ADD     X19, X19, X0                    // Increases the pointer by str length
+
+
+    LDRB    W2, [X19], # -1                 // Gets character
 
 loop:
-    CMP     W2, #-1
-    BEQ     notFound
-    CMP     W1, W3
-    BEQ     found
-    SUB     W3, W3, #0x1
-    LDRB    W4, [X0], #-1
-    B       loop
+    // Checks for end of str
+    CMP     W0, #-1                         // Compares W0 to -1
+    BEQ     notFound                        // Branches if X0 == -1
 
-found:
-    MOV     X0, X2
-    RET
+    // Checks for character
+    CMP     W20, W2                         // Checks if character is found
+    BEQ     exit                            // Exits if character is found
+
+    // Decrements the index
+    SUB     W0, W0, #0x1                    // W0 = W0 - 1
+    LDRB    W2, [X19], #-1                  // Gets the next character in str
+    B       loop                            // Loops again
 
 notFound:
     MOV     X0, #-1
+
+exit:
+    LDP     X19, X20, [SP], #16             // Pops X19 and X20 from the stack
+    LDR     LR, [SP], #16                   // Pops LR from the stack
     RET

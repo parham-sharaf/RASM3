@@ -1,65 +1,119 @@
-    .data
-name:           .asciz  "Green eggs and ham."
-phrase:         .asciz  "eggs"
-    .global _start
+    .global String_lastIndexOf_3
 
     .text
-// PRE-CONDITION
-// X0 holds the address to the string
-// X1 holds the address of a phrase
 
-// POST-CONDITION
-// X0 returns the index of last occurance of the character
+//*******************************************************************************
+//* FUNCTION String_indexOf_3
+//* -----------------------------------------------------------------------------
+//* This method returns the index of first occurrence of
+//* specified substring str.
+//* 	 	==> returns: signed integer
+//* -----------------------------------------------------------------------------
+//* 	PRE-CONDITIONS
+//*         X0: holds the address to the str
+//*         X1: holds the address of specified substring
+//*
+//* 	POST-CONDITIONS
+//*         X0: returns the index of first occurance of the substring
+//* 		Following registers will be modified
+//*         X0, X1, X2, X3, X4, X5, X6
+//*******************************************************************************/
 
-_start:
-    LDR     X19, =name
-    LDR     X20, =phrase
+String_lastIndexOf_3:
+    STP     LR,  X19, [SP, #-16]!       // Pushes LR and X19 onto the stack
+    STP     X20, X21, [SP, #-16]!       // Pushes X20 and X21 onto the stack
+    STP     X22, X23, [SP, #-16]!       // Pushes X22 and X23 onto the stack
 
-    STR     LR, [SP, #-16]!
-    MOV     X0, X19
-    BL      strlength
-    LDR     LR, [SP], #16
+    // Preserves the addresses
+    MOV     X19, X0                     // Moves the address of str into X19
+    MOV     X20, X1                     // Moves the address of the substring into X20
 
-    SUB     W21, W0, #1
+    // Length of str
+    BL      length                      // Branches to length to get the length of str
+    MOV     X21, X0                     // Stores the length into X21
 
-    STR     LR, [SP, #-16]!
-    MOV     X0, X20
-    BL      strlength
-    LDR     LR, [SP], #16
+    ADD     X19, X19, X21               // Increases str pointer by the size of str
+    SUB     X19, X19, #1                // Sets str pointer to the end of str
 
-    SUB     W22, W0, #1
+    // Length of substring
+    MOV     X0, X20                     // Moves the address of the substring into X0
+    BL      length                      // Branches to length to get the length of the substring
+    MOV     X22, X0                     // Moves the length into X22
 
-    ADD     X19, X19, X21
-    ADD     X20, X20, X22
+    ADD     X20, X20, X22               // Increase the pointer by the size of string
+    SUB     X20, X20, #1                // Sets substring pointer to the end of substring
 
-    LDRB    W4, [X19], #-1
-    LDRB    W5, [X20], #-1
+    // Checks if the substring is
+    // longer than str
+    CMP     X22, X21                    // Compares the length of str to the length of substring
+    BGE     notFound                    // Jumps to notFound if it is greater
+
+    // Last index to be checked
+    SUB     X23, X22, #1                // Decrements the size
+    MOV     X4, X21                     // Initializes the index counter
+    SUB     X4, X4, #1                  // Sets the index to the end of str
 
 loop:
-    CMP     W22, W21
-    BGT     notFound
+    // Gets the charaters
+    LDRB    W2, [X19], #-1              // Obtains the character in str X19 is pointing to
+    LDRB    W3, [X20]                   // Obtains the character in the substring X20 is pointing to
 
-    CMP     W22, #-1
-    BEQ     found
-    CMP     W4, W5
-    BNE     noMatch
-    SUB     W21, W21, #1
-    SUB     W22, W22, #1
-    LDRB    W4, [X19], #-1
-    LDRB    W5, [X20], #-1
-
+    // If str[n] == substring[n]
+    CMP     W2, W3                      // Compares the characters
+    BEQ     cont                        // If the same, jumps to cont
 
 noMatch:
-    LDRB    W4, [X19], #-1
-    LDRB    W5, [X20], #-1
-    SUB     W22, W0, #1
-    ADD     X20, X20, X22
-    B       loop
+    // Increment the index
+    SUB     X4, X4, #1                  // Adds 1 to the index
+
+    // If str[str.length() -
+    //  substring.lenght()] == substring[0]
+    CMP     X4, X23                     // Compares if the index check has reached the last index
+    BEQ     notFound                    // If yes, branches to notFound
+
+    B       loop                        // Otherwise, loop again
+
+cont:
+    // Stores str current index pointer
+    MOV     X5, X19                     // X5 = X19
+
+    // Increment substring index pointer
+    SUB     X6, X20, #1                 // X6 = X20 + 1
+
+    // Initizalizes X22 with the size of substring
+    MOV     X22, X0                     // X22 = X0
+
+checkWord:
+
+    // Gets the charaters
+    LDRB    W2, [X5], #-1               // Obtains the character in str X5 is pointing to
+    LDRB    W3, [X6], #-1               // Obtains the character in the substring X6 is pointing to
+
+    // Decrements index
+    SUB     X22, X22, #1                // Subtracts 1 from X22
+
+    // If str[n] == substring[n]
+    CMP     W2, W3                      // Compares the characters
+    BEQ     checkWord                   // Continues with the loop
+
+    // If the end of substring is reached
+    CMP     X22, #0
+
+    BEQ     found                       // Branch to found if X22 is 0
+    B       noMatch                     // else, branch to noMatch
 
 found:
-    MOV     X0, X21
-    RET
+    // Return found
+    SUB     W0, W4, W23                 // W0 = W4, the index found
+    B       exit                        // Branch to exit
 
 notFound:
-    MOV     X0, #-1
-    RET
+    // Return no found
+    MOV     X0, #-1                     // X0 = -1
+    B       exit                        // Branch to exit
+
+exit:
+    LDP     X22, X23, [SP], #16         // Pop X22 and X23 from the stack
+    LDP     X20, X21, [SP], #16         // Pop X20 and X21 from the stack
+    LDP     LR,  X19, [SP], #16         // Pop LR and X19 from the stack
+    RET                                 // Return
