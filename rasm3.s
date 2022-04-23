@@ -36,13 +36,16 @@ szTrue:                     .asciz  "TRUE\n"        //Label szTrue. Used for the
 szFalse:                    .asciz  "FALSE\n"       //Label szFalse. Used for the output
 szInput10:                  .asciz  "hat."          //Label szInput10. Used for input in Function 10
 szInput11:                  .asciz  "Cat"           //Label szInput11. Used for input in Function 11
-szInput12:                  .asciz  "in the cat."   //Label szInput12. Used for input in Function 12
+szInput12:                  .asciz  "in the hat."   //Label szInput12. Used for input in Function 12
 szInput22:                  .asciz  " "             //Label szInput22. Used for input in Function 22
 szInput15:                  .asciz  "eggs"          //Label szInput15. Used for input in Function 15
 szInput18:                  .asciz  "egg"           //Label szInput15. Used for input in Function 18
-szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
-szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
-szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
+//szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
+szStr1:                     .asciz  "Cat in the hat."              //Label szStr1. Contains a buffer to store a string
+//szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
+szStr2:                     .asciz  "Green eggs and ham."              //Label szStr2. Contains a buffer to store a string
+//szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
+szStr3:                     .asciz  "cat in the hat."              //Label szStr3. Contains a buffer to store a string
 szStr4:                     .skip   21              //Label szStr4. Contains a buffer to store a string
 szOut:                      .skip   21              //Label szOut. Contains a buffer to print to the terminal
 cLF:                        .byte   10              //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
@@ -56,39 +59,6 @@ _start:
         ldr X0, =szOpeningMsg           //Loading X0 with the address of szOpeningMsg
         bl putstring                    //Branching and linking to putstring
 
-        //FOR STRING 1===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr1                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 2===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr2                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
-        //FOR STRING 3===============================================================
-        //Prompting the user to input a string
-        ldr X0, =szPrompt               //Loading X0 with the address of szPrompt
-        bl putstring                    //Branching and linking to putstring
-
-        //Getting number from the keyboard
-        ldr X0, =szStr3                 //Loading X0 with the address of the buffer
-        mov X1, #21                     //String length = 21 bytes
-        bl getstring                    //Branching and linking to getstring
-        //=============================================================================
-
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -98,7 +68,7 @@ _start:
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
-        BL length                       //Branching and linking to length
+        BL String_length                //Branching and linking to String_length
 
         //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
         LDR X1, =szOut                  //Loading X1 with the address of the buffer
@@ -117,7 +87,7 @@ _start:
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
-        BL length                       //Branching and linking to length
+        BL String_length                //Branching and linking to String_length
 
         //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
         LDR X1, =szOut                  //Loading X1 with the address of the buffer
@@ -136,7 +106,7 @@ _start:
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr3                 //Loading X0 with the address of szStr3
-        BL length                       //Branching and linking to length
+        BL String_length                //Branching and linking to String_length
 
         //CONVERTING TO ASCII CHARACTERS TO DISPLAY ON TERMINAL========================
         LDR X1, =szOut                  //Loading X1 with the address of the buffer
@@ -162,7 +132,7 @@ _start:
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
         LDR X1, =szStr3                 //Loading X1 with the address of szStr3
-        BL equals                       //Branching and linking to equals
+        BL String_equals                //Branching and linking to equals
 
         CBZ X0, false1                  //If the flag is false (X0 contains 0), jump to false1
 
@@ -185,7 +155,7 @@ continueAfterEquals1:
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
         LDR X1, =szStr1                 //Loading X1 with the address of szStr1
-        BL equals                       //Branching and linking to equals
+        BL String_equals                //Branching and linking to equals
 
         CBZ X0, false2                  //If the flag is false (X0 contains 0), jump to false2
 
@@ -210,7 +180,7 @@ continueAfterEquals2:
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
         LDR X1, =szStr3                 //Loading X1 with the address of szStr3
-        BL equalsIgnoreCase             //Branching and linking to equalsIgnoreCase
+        BL String_equalsIgnoreCase      //Branching and linking to String_equalsIgnoreCase
 
         CBZ X0, false3                  //If the flag is false (X0 contains 0), jump to false3
 
@@ -233,7 +203,7 @@ continueAfterEquals3:
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
         LDR X1, =szStr2                 //Loading X1 with the address of szStr2
-        BL equals                       //Branching and linking to equals
+        BL String_equalsIgnoreCase      //Branching and linking to String_equalsIgnoreCase
 
         CBZ X0, false4                  //If the flag is false (X0 contains 0), jump to false4
 
@@ -305,11 +275,7 @@ loop:
         MOV X2, #14                     //Setting X2 to 14
         BL String_substring_1           //Branching and linking to String_substring_1
 
-        MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
-
-        MOV X0, X3                      //Moving X3 to X0
-        BL free                         //Branching and linking to free
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -328,11 +294,7 @@ loop:
         MOV X1, #7                      //Setting X1 to 7
         BL String_substring_2           //Branching and linking to String_substring_2
 
-        MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
-
-        MOV X0, X3                      //Moving X3 to X0
-        BL free                         //Branching and linking to free
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -349,7 +311,7 @@ loop:
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
         MOV X1, #4                      //Setting X1 to 4
-        BL charAt                       //Branching and linking to charAt
+        BL String_charAt                       //Branching and linking to charAt
 
         cbnz X0, printChar              //Checking if X0 contains 0; if so, jump to printChar
 
@@ -618,7 +580,7 @@ continueAfterEquals7:
         LDR X0, =szStr1                 //Lopading X0 with the address of szStr1
         MOV X1, #'a'                    //Setting X1 to the ASCII value of 'a'
         MOV X2, #'o'                    //Setting X2 to the ASCII value of 'o'
-        BL replace                      //Branching and linking to replace
+        BL String_replace                      //Branching and linking to replace
 
         MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
@@ -637,7 +599,7 @@ continueAfterEquals7:
         BL putstring                    //Branching and linking to putstring
 
         MOV X0, X3                      //Moving X0 to X3
-        BL toLowerCase                  //Branching and linking to toLowerCase
+        BL String_toLowerCase                  //Branching and linking to toLowerCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
@@ -656,7 +618,7 @@ continueAfterEquals7:
         BL putstring                    //Branching and linking to putstring
 
         MOV X0, X3                      //Moving X0 to X3
-        BL toUpperCase                  //Branching and linking to toUpperCase
+        BL String_toUpperCase                  //Branching and linking to toUpperCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
