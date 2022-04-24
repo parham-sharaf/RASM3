@@ -1,4 +1,6 @@
-    .global String_length                       //Provide program starting address to linker
+//File: String2.s
+//Author: Parham Sharafoleslami
+
     .global String_startsWith_1                 //Provide program starting address to linker
     .global String_startsWith_2                 //Provide program starting address to linker
     .global String_indexOf_1                    //Provide program starting address to linker
@@ -11,34 +13,6 @@
     .text
 
 
-
-//*******************************************************************************
-//* FUNCTION String_length
-//* -----------------------------------------------------------------------------
-//* Returns the length of the given string
-//* 	 	==> returns: positive integer
-//* -----------------------------------------------------------------------------
-//* 	PRE-CONDITIONS
-//*         X0: holds the address to the str
-//*
-//* 	POST-CONDITIONS
-//*         X0: holds the length of the given string
-//* 		Following registers will be modified
-//*         X0, X1, X2
-//*******************************************************************************
-
-length:
-        mov X1, #0              //Resetting the counter (X1) to be 0
-
-loop_length:
-        ldrb W2, [X0], #1       //Loading W2 with the next byte from the string
-        cbnz W2, cont_length    //If W2 contains a null character, jump to cont_length
-
-        mov X0, X1              //Moving the counter from X1 to X0 (facilitates printing it out to the terminal)
-        ret                     //Return back to main
-cont_length:
-        add X1, X1, #1          //Increment counter
-        b loop_length           //Loop again
 
 //*******************************************************************************
 //* FUNCTION String_startsWith_1
@@ -60,7 +34,6 @@ cont_length:
 //*******************************************************************************
 
 String_startsWith_1:
-
     ADD     X0, X0, X1              // Creates an offset for the string pointer
 
     LDRB    W3, [X0], #1            // Gets the first character of str
@@ -78,7 +51,7 @@ loop_ssw1:
     LDRB    W4, [X2], #1            // Loads the next character int the substring in W4
 
     // Loops again
-    B       loop_ssw1
+    B       loop_ssw1               // Loop again
 
 notFound_ssw1:
     // Return not found
@@ -109,7 +82,6 @@ found_ssw1:
 //*******************************************************************************
 
 String_startsWith_2:
-
     LDRB    W2, [X0], #1        // Gets the first character of str
     LDRB    W3, [X1], #1        // Gets the second character of substring
 
@@ -157,7 +129,6 @@ found_ssw2:
 //*******************************************************************************
 
 String_indexOf_1:
-
     // Get character in str
     LDRB    W3, [X0], #1                    // Obtains the character X0 is pointing to
 
@@ -207,7 +178,6 @@ notFound_sio1:
 //*******************************************************************************
 
 String_indexOf_2:
-
     // Moves the pointer to to starting position
     ADD     X0, X0, X2              // X0 = X0 + X2
 
@@ -268,12 +238,12 @@ String_indexOf_3:
     MOV     X20, X1                     // Moves the address of the substring into X20
 
     // Length of str
-    BL      length                      // Branches to length to get the length of str
+    BL      String_length               // Branches to String_length to get the length of str
     MOV     X21, X0                     // Stores the length into X21
 
     // Length of substring
     MOV     X0, X20                     // Moves the address of the substring into X0
-    BL      length                      // Branches to length to get the length of the substring
+    BL      String_length               // Branches to String_length to get the length of the substring
     MOV     X22, X0                     // Moves the length into X22
 
     // Checks if the substring is
@@ -370,7 +340,7 @@ String_lastIndexOf_1:
     MOV     X20, X1                         // X20 = X0
 
     // Gets the length of the string
-    BL      length                          // Branches to length
+    BL      String_length                   // Branches to String_length
 
     // Sets the index
     SUB     W0, W0, #1                      // W2 = W0 - 1
@@ -480,7 +450,7 @@ String_lastIndexOf_3:
     MOV     X20, X1                     // Moves the address of the substring into X20
 
     // Length of str
-    BL      length                      // Branches to length to get the length of str
+    BL      String_length               // Branches to String_length to get the length of str
     MOV     X21, X0                     // Stores the length into X21
 
     ADD     X19, X19, X21               // Increases str pointer by the size of str
@@ -488,7 +458,7 @@ String_lastIndexOf_3:
 
     // Length of substring
     MOV     X0, X20                     // Moves the address of the substring into X0
-    BL      length                      // Branches to length to get the length of the substring
+    BL      String_length               // Branches to String_length to get the length of the substring
     MOV     X22, X0                     // Moves the length into X22
 
     ADD     X20, X20, X22               // Increase the pointer by the size of string

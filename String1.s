@@ -1,3 +1,6 @@
+//File: String1.s
+//Author: Seth Tran
+
     .global String_length                       //Provide program starting address to linker
     .global String_equals                       //Provide program starting address to linker
     .global String_equalsIgnoreCase             //Provide program starting address to linker

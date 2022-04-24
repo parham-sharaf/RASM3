@@ -164,18 +164,9 @@ _start:
         LDR X1, =szStr3                 //Loading X1 with the address of szStr3
         BL String_equals                //Branching and linking to equals
 
-        CBZ X0, false1                  //If the flag is false (X0 contains 0), jump to false1
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals1          //Unconditional jump to continueAfterEquals1
-
-false1:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals1:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -187,18 +178,9 @@ continueAfterEquals1:
         LDR X1, =szStr1                 //Loading X1 with the address of szStr1
         BL String_equals                //Branching and linking to String_equals
 
-        CBZ X0, false2                  //If the flag is false (X0 contains 0), jump to false2
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals2          //Unconditional jump to continueAfterEquals2
-
-false2:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals2:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -212,18 +194,9 @@ continueAfterEquals2:
         LDR X1, =szStr3                 //Loading X1 with the address of szStr3
         BL String_equalsIgnoreCase      //Branching and linking to String_equalsIgnoreCase
 
-        CBZ X0, false3                  //If the flag is false (X0 contains 0), jump to false3
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals3          //Unconditional jump to continueAfterEquals3
-
-false3:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals3:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -235,18 +208,9 @@ continueAfterEquals3:
         LDR X1, =szStr2                 //Loading X1 with the address of szStr2
         BL String_equalsIgnoreCase      //Branching and linking to String_equalsIgnoreCase
 
-        CBZ X0, false4                  //If the flag is false (X0 contains 0), jump to false4
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals4          //Unconditional jump to continueAfterEquals4
-
-false4:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals4:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -378,18 +342,9 @@ continueAfterPrintChar:
         LDR X2, =szInput10              //Loading X2 with the address of szStringStartWith1Phrase
         BL String_startsWith_1          //Branching and linking to String_startsWith_1
 
-        CBZ X0, false5                  //If the flag is false (X0 contains 0), jump to false5
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals5          //Unconditional jump to continueAfterEquals5
-
-false5:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals5:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -403,18 +358,9 @@ continueAfterEquals5:
         LDR X1, =szInput11              //Loading X1 with the address of szInput11
         BL String_startsWith_2          //Branching and linking to String_startsWith_2
 
-        CBZ X0, false6                  //If the flag is false (X0 contains 0), jump to false6
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals6          //Unconditional jump to continueAfterEquals6
-
-false6:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals6:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -428,18 +374,9 @@ continueAfterEquals6:
         LDR X1, =szInput12              //Loading X1 with the address of szInput12
         BL String_endsWith              //Branching and linking to String_endsWith
 
-        CBZ X0, false7                  //If they are not equal, jump to false7
+        //Printing result
+        BL printTorF                    //Printing TRUE or FALSE based off the function output
 
-        LDR X0, =szTrue                 //Loading X0 with the address of szTrue
-        BL putstring                    //Branching and linking to putstring
-
-        B continueAfterEquals7          //Unconditional jump to continueAfterEquals7
-
-false7:
-        LDR X0, =szFalse                //Loading X0 with the address of szFalse
-        BL putstring                    //Branching and linking to putstring
-
-continueAfterEquals7:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
         BL putch                        //Executing putch to print the line feed to the terminal
@@ -691,6 +628,8 @@ continueAfterEquals7:
 
         //PRINT TRUE/FALSE FUNCTION===============================================================
 printTorF:
+        STR LR, [SP, #-16]!             //Pushing LR onto the stack
+
         CBZ X0, printFalse              //If X0 is 0, jump to printFalse to print FALSE
 
         LDR X0, =szTrue                 //Loading X0 with the address of szTrue
@@ -703,6 +642,7 @@ printFalse:
         BL putstring                    //Branching and linking to putstring
 
 exit:
+        LDR LR, [SP], #16               //Popping the stack and loading LR -> LR
         RET                             //Return
         //=============================================================================
 
