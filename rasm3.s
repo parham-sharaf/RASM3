@@ -305,7 +305,7 @@ loop:
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
         MOV X1, #4                      //Setting X1 to 4
-        BL String_charAt                       //Branching and linking to charAt
+        BL String_charAt                //Branching and linking to String_charAt
 
         cbnz X0, printChar              //Checking if X0 contains 0; if so, jump to printChar
 
@@ -547,7 +547,7 @@ continueAfterPrintChar:
         LDR X0, =szStr1                 //Lopading X0 with the address of szStr1
         MOV X1, #'a'                    //Setting X1 to the ASCII value of 'a'
         MOV X2, #'o'                    //Setting X2 to the ASCII value of 'o'
-        BL String_replace                      //Branching and linking to replace
+        BL String_replace               //Branching and linking to String_replace
 
         MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
@@ -566,7 +566,7 @@ continueAfterPrintChar:
         BL putstring                    //Branching and linking to putstring
 
         MOV X0, X3                      //Moving X0 to X3
-        BL String_toLowerCase                  //Branching and linking to toLowerCase
+        BL String_toLowerCase           //Branching and linking to String_toLowerCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
@@ -585,7 +585,7 @@ continueAfterPrintChar:
         BL putstring                    //Branching and linking to putstring
 
         MOV X0, X3                      //Moving X0 to X3
-        BL String_toUpperCase                  //Branching and linking to toUpperCase
+        BL String_toUpperCase           //Branching and linking to String_toUpperCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
