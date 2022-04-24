@@ -115,7 +115,7 @@ String_equals:
         cbz W2, checkOther_equals      //If W2 is a null character, check to see if we are at the end of the second string
 
         cmp W2, W3              //Checking to see if the character from the first string and second string match
-        b.ne match_equals            //If they do not match, jump to noMatch (NOT setting the boolean to TRUE)
+        b.ne noMatch_equals            //If they do not match, jump to noMatch (NOT setting the boolean to TRUE)
 
         b String_equals         //Unconditional jump to String_equals
 
@@ -361,7 +361,7 @@ String_charAt:
 
         add X0, X0, X1              //Moving the "pointer" up to the byte right before the byte that needs to be printed
 
-        b charAtCont                      //Unconditional jump to cont
+        b cont_charAt                      //Unconditional jump to cont
 
 outOfBounds_charAt:
         mov X0, #0                  //Setting X0 to 0
@@ -408,36 +408,17 @@ String_endsWith:
 
         sub X2, X0, X1              //Finding the difference between the two lengths and storing the result in X2
         cmp X2, #0                  //Checking if the difference is negative
-        b.lt notEndWith             //If it is, jump to notEndWith
+        b.lt false_endsWith             //If it is, jump to notEndWith
 
         ldr X0, [FP, #str_endsWith]          //Loading X0 with the addres of the string from the FP
         ldr X1, [FP, #phr_endsWith]          //Loading X1 with the address of the phrase from the FP
 
         add X0, X0, X2              //Moving the string pointer to where the phrase starts
-
-loop_endsWith:
-        ldrb W2, [X0], #1           //Loading W3 with the ASCII value of the next byte from the string
-        ldrb W3, [X1], #1           //Loading W3 with the ASCII value of the next byte from the phrase
-
-        cmp W2, W3                  //Checking if W2 and W3 are holding the same character
-        b.ne false_endsWith             //If not, jump to notEndWith
-
-        cbz W3, check_endsWith               //Checking to see if we have reached the end of the phrase; if so, check to see if
-                                    //the string has also ended
-
-        b loop_endsWith                      //Unconditional jump to loop
-
-check_endsWith:
-        cbz W2, true_endsWith            //If W2 is a null character, meaning we are at the end of the string as well, jump
-                                    //to endsWith
-        b false_endsWith                //Unconditional jump to notEndWith
-
-true_endsWith:
-        mov X0, #1                  //Setting the boolean to TRUE
-        b endsWithExit                      //Unconditional jump to exit
+        bl String_equals
+        b exit_endsWith
 
 false_endsWith:
-        mov X0, #0                  //Setting the boolean to FALSE
+        mov X0, #0                  //Setting X0 to 0
 
 exit_endsWith:
         add SP, SP, #32             //Adding 16 to the SP (FP gets garbage collected)
@@ -559,7 +540,7 @@ loopEnd_toLowerCase:
         b loop_toLowerCase                      //Unconditional jump to loop
 
 cont_toLowerCase:
-        ldr X1, [FP, #p20Len]          //Loading the length from the FP to X1
+        ldr X1, [FP, #len_toLowerCase]          //Loading the length from the FP to X1
         sub X0, X0, X1              //Moving the character pointer back to the start of the string
 
         add SP, SP, #16             //Adding 16 to the SP (FP gets garbage collected)
@@ -629,7 +610,7 @@ cont_toUpperCase:
 //*******************************************************************************
 //* FUNCTION String_concat
 //* -----------------------------------------------------------------------------
-//* Sets all the characters of the string to uppercase.
+//* Combines the two given strings into one concatenated string.
 //* 	 	==> returns: string address
 //* -----------------------------------------------------------------------------
 //* 	PRE-CONDITIONS
