@@ -56,7 +56,7 @@ szStr2:                     .skip   21                  //Label szStr2. Contains
 szStr3:                     .skip   21                  //Label szStr3. Contains a buffer to store a string
 szStr4:                     .skip   21                  //Label szStr4. Contains a buffer to store a string
 szOut:                      .skip   21                  //Label szOut. Contains a buffer to print to the terminal
-cQuotes:                    .byte   34                  //Label cQuote. Contains .byte of '"'. Used to print " to the terminal
+cQuotes:                    .byte   34                  //Label cQuotes. Contains .byte of '"'. Used to print " to the terminal
 cQuote:                     .byte   39                  //Label cQuote. Contains .byte of '''. Used to print " to the terminal
 cSpace:                     .byte   32                  //Label cSpace. Contains .byte of ' '. Used to print a space to the terminal
 cLF:                        .byte   10                  //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
