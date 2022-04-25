@@ -19,33 +19,47 @@ szPmpt6c:                   .asciz  "\ts4 = "                                   
 szPmpt7:                    .asciz  "7.\tString_substring_1(s3,4,14) = "                        //Prompt used in output
 szPmpt8:                    .asciz  "8.\tString_substring_2(s3,7) = "                           //Prompt used in output
 szPmpt9:                    .asciz  "9.\tString_charAt(s2,4) = "                                //Prompt used in output
-szPmpt10:                   .asciz  "10.\tString_startsWith_1(s1,11,'hat.') = "                 //Prompt used in output
-szPmpt11:                   .asciz  "11.\tString_startsWith_2(s1,'Cat') = "                     //Prompt used in output
-szPmpt12:                   .asciz  "12.\tString_endsWith(s1,'in the hat.') = "                 //Prompt used in output
-szPmpt13:                   .asciz  "13.\tString_indexOf_1(s2,'g') = "                          //Prompt used in output
+szPmpt10a:                  .asciz  "10.\tString_startsWith_1(s1,11,"                           //Prompt used in output
+szPmpt10b:                  .asciz  "hat."                                                      //Prompt used in output
+szPmpt10c:                  .asciz  ") = "                                                      //Prompt used in output
+szPmpt11a:                  .asciz  "11.\tString_startsWith_2(s1,"                              //Prompt used in output
+szPmpt11b:                  .asciz  "Cat"                                                       //Prompt used in output
+szPmpt11c:                  .asciz  ") = "                                                      //Prompt used in output
+szPmpt12a:                  .asciz  "12.\tString_endsWith(s1,"                                  //Prompt used in output
+szPmpt12b:                  .asciz  "in the hat."                                               //Prompt used in output
+szPmpt12c:                  .asciz  ") = "                                                      //Prompt used in output
+szPmpt13a:                  .asciz  "13.\tString_indexOf_1(s2,'g') = "                          //Prompt used in output
 szPmpt14:                   .asciz  "14.\tString_indexOf_2(s2,'g',9) = "                        //Prompt used in output
-szPmpt15:                   .asciz  "15.\tString_indexOf_3(s2,'eggs') = "                       //Prompt used in output
+szPmpt15a:                  .asciz  "15.\tString_indexOf_3(s2,"                                 //Prompt used in output
+szPmpt15b:                  .asciz  "eggs"                                                      //Prompt used in output
+szPmpt15c:                  .asciz  ") = "                                                      //Prompt used in output
 szPmpt16:                   .asciz  "16.\tString_lastIndexOf_1(s2,'g') = "                      //Prompt used in output
 szPmpt17:                   .asciz  "17.\tString_lastIndexOf_2(s2,'g',6) = "                    //Prompt used in output
-szPmpt18:                   .asciz  "18.\tString_lastIndexOf_3(s2,'egg') = "                    //Prompt used in output
+szPmpt18a:                  .asciz  "18.\tString_lastIndexOf_3(s2,"                             //Prompt used in output
+szPmpt18b:                  .asciz  "egg"                                                       //Prompt used in output
+szPmpt18c:                  .asciz  ") = "                                                      //Prompt used in output
 szPmpt19:                   .asciz  "19.\tString_replace(s1,'a','o') = "                        //Prompt used in output
 szPmpt20:                   .asciz  "20.\tString_toLowerCase(s1) = "                            //Prompt used in output
 szPmpt21:                   .asciz  "21.\tString_toUpperCase(s1) = "                            //Prompt used in output
-szPmpt22:                   .asciz  "22.\tString_concat(s1, ' ');\n\tString_concat(s1, s2) = "
-szTrue:                     .asciz  "TRUE\n"        //Label szTrue. Used for the output
-szFalse:                    .asciz  "FALSE\n"       //Label szFalse. Used for the output
-szInput10:                  .asciz  "hat."          //Label szInput10. Used for input in Function 10
-szInput11:                  .asciz  "Cat"           //Label szInput11. Used for input in Function 11
-szInput12:                  .asciz  "in the hat."   //Label szInput12. Used for input in Function 12
-szInput22:                  .asciz  " "             //Label szInput22. Used for input in Function 22
-szInput15:                  .asciz  "eggs"          //Label szInput15. Used for input in Function 15
-szInput18:                  .asciz  "egg"           //Label szInput15. Used for input in Function 18
-szStr1:                     .skip   21              //Label szStr1. Contains a buffer to store a string
-szStr2:                     .skip   21              //Label szStr2. Contains a buffer to store a string
-szStr3:                     .skip   21              //Label szStr3. Contains a buffer to store a string
-szStr4:                     .skip   21              //Label szStr4. Contains a buffer to store a string
-szOut:                      .skip   21              //Label szOut. Contains a buffer to print to the terminal
-cLF:                        .byte   10              //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
+szPmpt22a:                  .asciz  "22.\tString_concat(s1, "                                   //Prompt used in output
+szPmpt22b:                  .asciz  ");\n\tString_concat(s1, s2) = "                            //Prompt used in output
+szTrue:                     .asciz  "TRUE\n"            //Label szTrue. Used for the output
+szFalse:                    .asciz  "FALSE\n"           //Label szFalse. Used for the output
+szInput10:                  .asciz  "hat."              //Label szInput10. Used for input in Function 10
+szInput11:                  .asciz  "Cat"               //Label szInput11. Used for input in Function 11
+szInput12:                  .asciz  "in the hat."       //Label szInput12. Used for input in Function 12
+szInput22:                  .asciz  " "                 //Label szInput22. Used for input in Function 22
+szInput15:                  .asciz  "eggs"              //Label szInput15. Used for input in Function 15
+szInput18:                  .asciz  "egg"               //Label szInput15. Used for input in Function 18
+szStr1:                     .skip   21                  //Label szStr1. Contains a buffer to store a string
+szStr2:                     .skip   21                  //Label szStr2. Contains a buffer to store a string
+szStr3:                     .skip   21                  //Label szStr3. Contains a buffer to store a string
+szStr4:                     .skip   21                  //Label szStr4. Contains a buffer to store a string
+szOut:                      .skip   21                  //Label szOut. Contains a buffer to print to the terminal
+cQuotes:                    .byte   34                  //Label cQuote. Contains .byte of '"'. Used to print " to the terminal
+cQuote:                     .byte   39                  //Label cQuote. Contains .byte of '''. Used to print " to the terminal
+cSpace:                     .byte   32                  //Label cSpace. Contains .byte of ' '. Used to print a space to the terminal
+cLF:                        .byte   10                  //Label cLF. Contains .byte of "\n". Used to print line feed to the terminal
 
     .global _start                      //Provide program starting address to linker
 
@@ -264,12 +278,18 @@ loop:
         LDR X0, =szPmpt7                //Loading X0 with the address of szPmpt7
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
         LDR X0, =szStr3                 //Loading X0 with the address of szStr3
         MOV X1, #4                      //Setting X1 to 4
         MOV X2, #14                     //Setting X2 to 14
         BL String_substring_1           //Branching and linking to String_substring_1
 
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -284,11 +304,17 @@ loop:
         LDR X0, =szPmpt8                //Loading X0 with the address of szPmpt8
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
         LDR X0, =szStr3                 //Loading X0 with the address of szStr3
         MOV X1, #7                      //Setting X1 to 7
         BL String_substring_2           //Branching and linking to String_substring_2
 
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -302,6 +328,9 @@ loop:
         //PRINTING CHARAT FUNCTION===============================================================
         LDR X0, =szPmpt9                //Loading X0 with the address of szPmpt9
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuote                 //Loading X0 with the address of cQuote
+        BL putch                        //Branching and linking to putch
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
         MOV X1, #4                      //Setting X1 to 4
@@ -323,6 +352,9 @@ loop:
 printChar:
         BL putch                        //Branching and linking to putch
 
+        LDR X0, =cQuote                 //Loading X0 with the address of cQuote
+        BL putch                        //Branching and linking to putch
+
 continueAfterPrintChar:
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -334,7 +366,19 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_STARTSWITH_1 FUNCTION===============================================================
-        LDR X0, =szPmpt10               //Loading X0 with the address of szPmpt10
+        LDR X0, =szPmpt10a              //Loading X0 with the address of szPmpt10a
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt10b              //Loading X0 with the address of szPmpt10b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt10c              //Loading X0 with the address of szPmpt10c
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
@@ -351,7 +395,19 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_STARTSWITH_2 FUNCTION===============================================================
-        LDR X0, =szPmpt11               //Loading X0 with the address of szPmpt11
+        LDR X0, =szPmpt11a              //Loading X0 with the address of szPmpt11a
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt11b              //Loading X0 with the address of szPmpt11b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt11c              //Loading X0 with the address of szPmpt11c
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr1                 //Loading X0 with the address of szstr1
@@ -367,7 +423,19 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_ENDSWITH FUNCTION===============================================================
-        LDR X0, =szPmpt12               //Loading X0 with the address of szPmpt12
+        LDR X0, =szPmpt12a              //Loading X0 with the address of szPmpt12a
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt12b              //Loading X0 with the address of szPmpt12b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt12c              //Loading X0 with the address of szPmpt12c
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr1                 //Loading X0 with the address of szStr1
@@ -383,7 +451,7 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_INDEXOF_1 FUNCTION===============================================================
-        LDR X0, =szPmpt13               //Loading X0 with the address of szPmpt13
+        LDR X0, =szPmpt13a              //Loading X0 with the address of szPmpt13a
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
@@ -409,7 +477,7 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_INDEXOF_2 FUNCTION===============================================================
-        LDR X0, =szPmpt14               //Loading X0 with the address of szPmpt14
+        LDR X0, =szPmpt14               //Loading X0 with the address of szPmpt14a
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
@@ -436,7 +504,19 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_INDEXOF_3 FUNCTION===============================================================
-        LDR X0, =szPmpt15               //Loading X0 with the address of szPmpt15
+        LDR X0, =szPmpt15a              //Loading X0 with the address of szPmpt15a
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt15b              //Loading X0 with the address of szPmpt15b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt15c              //Loading X0 with the address of szPmpt15c
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
@@ -515,7 +595,19 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_LASTINDEXOF_3 FUNCTION===============================================================
-        LDR X0, =szPmpt18               //Loading X0 with the address of szPmpt18
+        LDR X0, =szPmpt18a              //Loading X0 with the address of szPmpt18a
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt18b              //Loading X0 with the address of szPmpt18b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt18c              //Loading X0 with the address of szPmpt18c
         BL putstring                    //Branching and linking to putstring
 
         LDR X0, =szStr2                 //Loading X0 with the address of szStr2
@@ -544,6 +636,9 @@ continueAfterPrintChar:
         LDR X0, =szPmpt19               //Loading X0 with the address of szPmpt19
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
         LDR X0, =szStr1                 //Lopading X0 with the address of szStr1
         MOV X1, #'a'                    //Setting X1 to the ASCII value of 'a'
         MOV X2, #'o'                    //Setting X2 to the ASCII value of 'o'
@@ -551,6 +646,9 @@ continueAfterPrintChar:
 
         MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -565,11 +663,17 @@ continueAfterPrintChar:
         LDR X0, =szPmpt20               //Loading X0 with the address of szPmpt20
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
         MOV X0, X3                      //Moving X0 to X3
         BL String_toLowerCase           //Branching and linking to String_toLowerCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -584,11 +688,17 @@ continueAfterPrintChar:
         LDR X0, =szPmpt21               //Loading X0 with the address of szPmpt21
         BL putstring                    //Branching and linking to putstring
 
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
         MOV X0, X3                      //Moving X0 to X3
         BL String_toUpperCase           //Branching and linking to String_toUpperCase
 
         MOV X3, X0                      //Moving X3 to X0
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         //Printing endline
         LDR X0, =cLF                    //Loading X0 with the address of cLF
@@ -600,10 +710,25 @@ continueAfterPrintChar:
         //=============================================================================
 
         //PRINTING STRING_CONCAT FUNCTION===============================================================
-        LDR X0, =szPmpt22               //Loading X0 with the address of szPmpt22
+        LDR X0, =szPmpt22a              //Loading X0 with the address of szPmpt11a
         BL putstring                    //Branching and linking to putstring
 
-        MOV X0, X3
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =cSpace                 //Loading X0 with the address of cSpace
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        LDR X0, =szPmpt22b              //Loading X0 with the address of szPmpt11b
+        BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
+
+        MOV X0, X3                      //Moving X0 to X3
         LDR X1, =szInput22              //Loading X1 with the address of szInput22
         BL String_concat                //Branching and linking to String_concat
 
@@ -612,6 +737,9 @@ continueAfterPrintChar:
 
         MOV X3, X0                      //Moving X0 to X3
         BL putstring                    //Branching and linking to putstring
+
+        LDR X0, =cQuotes                //Loading X0 with the address of cQuotes
+        BL putch                        //Branching and linking to putch
 
         MOV X0, X3                      //Moving X3 to X0
         BL free                         //Branching and linking to free
